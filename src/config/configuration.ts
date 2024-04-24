@@ -6,7 +6,9 @@ export const configuration = () => ({
   PASSWORD: process.env.POSTGRES_PASSWORD,
   DATBASE: process.env.POSTGRES_DATABASE,
   jwt: {
-    secret: process.env.JWT_SECRET,
-    expiresIn: process.env.EXPIRES_IN
+    JWT_ACCESS_SECRET: process.env.JWT_ACCESS_SECRET,
+    JWT_ACCESS_EXPIRY_TIME: process.env.JWT_ACCESS_EXPIRY_TIME,
+    JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET,
+    JWT_REFRESH_EXPIRY_TIME: process.env.JWT_REFRESH_EXPIRY_TIME
   }
 });

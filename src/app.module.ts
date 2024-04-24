@@ -1,19 +1,15 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { configuration } from './config/configuration';
 import { DatabaseModule } from './database/database.module';
 import { UsersModule } from './users/users.module';
 import { ProductsModule } from './products/products.module';
 import { OrdersModule } from './orders/orders.module';
-import { ReviewsController } from './reviews/reviews.controller';
-import { ReviewsService } from './reviews/reviews.service';
 import { ReviewsModule } from './reviews/reviews.module';
 import { AuthModule } from './auth/auth.module';
-import { RoleController } from './role/role.controller';
-import { RoleService } from './role/role.service';
 import { RoleModule } from './role/role.module';
+import { TokenService } from './token/token.service';
+import { TokenModule } from './token/token.module';
 
 @Module({
   imports: [
@@ -27,9 +23,9 @@ import { RoleModule } from './role/role.module';
     OrdersModule,
     ReviewsModule,
     AuthModule,
-    RoleModule
+    RoleModule,
+    TokenModule
   ],
-  controllers: [AppController, ReviewsController, RoleController],
-  providers: [AppService, ReviewsService, RoleService]
+  providers: [TokenService]
 })
 export class AppModule {}

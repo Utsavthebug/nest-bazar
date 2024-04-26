@@ -18,4 +18,23 @@ export class RoleService {
 
     return role;
   }
+
+  async checkPermission(id: string, neededPermission: string) {
+    const role = await this.roleRepository.findOne({
+      where: {
+        id
+      },
+      relations: ['permissions']
+    });
+
+    const has_permission = role.permissions.find(
+      (permission) => permission.name === neededPermission
+    );
+
+    if (has_permission) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

@@ -1,13 +1,11 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { PERMISSION_KEY } from '../decorators/permission.decorator';
-import { UserService } from 'src/users/users.service';
-import { RoleService } from '../role.service';
+import { PERMISSION_KEY } from '../../utility/decorators/permission.decorator';
+import { RoleService } from 'src/role/role.service';
 
 @Injectable()
 export class PermissionGuard implements CanActivate {
   constructor(
-    private readonly userService: UserService,
     private readonly roleService: RoleService,
     private reflector: Reflector
   ) {}
@@ -22,10 +20,9 @@ export class PermissionGuard implements CanActivate {
     }
 
     const req = context.switchToHttp().getRequest();
-    const id = req['user'];
+    const { role } = req.currentUser;
 
     try {
-      const { role } = await this.userService.findOne(id);
       const hasPermission = await this.roleService.checkPermission(
         role.id,
         neededPermission
